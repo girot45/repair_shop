@@ -15,7 +15,7 @@ DATABASE_URL = f"postgresql+asyncpg://{DB_USER}:{DB_PASS}@{DB_HOST}:{DB_PORT}/{D
 Base: DeclarativeMeta = declarative_base()
 
 
-class Master(SQLAlchemyBaseUserTable[int], Base):
+class User(SQLAlchemyBaseUserTable[int], Base):
     __tablename__ = "Master"
     id = Column(BigInteger, primary_key=True)
     email = Column(String, nullable=False)
@@ -42,4 +42,4 @@ async def get_async_session() -> AsyncGenerator[AsyncSession, None]:
 
 
 async def get_user_db(session: AsyncSession = Depends(get_async_session)):
-    yield SQLAlchemyUserDatabase(session, Master)
+    yield SQLAlchemyUserDatabase(session, User)

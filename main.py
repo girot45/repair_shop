@@ -2,7 +2,7 @@ from routes.user import router as router_user, current_user
 
 from fastapi import FastAPI, Depends
 
-from database.database import Master
+from database.database import User
 
 
 app = FastAPI()
@@ -11,7 +11,7 @@ app.include_router(router_user)
 
 
 @app.get("/protected-route")
-def protected_route(user: Master = Depends(current_user)):
+def protected_route(user: User = Depends(current_user)):
     return f"Hello, {user.fio}"
 
 
