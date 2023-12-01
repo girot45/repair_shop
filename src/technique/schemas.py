@@ -14,6 +14,8 @@ class TechRead(BaseModel):
     acceptance_date: date
     breakdown_description: str
     damaged_details: list[DamagedDetails]
+    repair_status: str
+    comments: str
 
 
 class TechReturn(BaseModel):

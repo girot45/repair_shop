@@ -38,7 +38,7 @@
     var checkNumber = document.getElementById('checkNumber').value;
 
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'http://localhost:8000/check-status/info?receipt_number=' + checkNumber, true);
+    xhr.open('GET', 'http://localhost:8000/technique/info?receipt_number=' + checkNumber, true);
     xhr.onreadystatechange = function() {
       if (xhr.readyState === 4) {
         if (xhr.status === 200) {
@@ -66,6 +66,8 @@
       resultHtml += '<p><strong>Дата приема:</strong> ' + data.data.acceptance_date + '</p>';
       resultHtml += '<p><strong>Описание поломки:</strong> ' + data.data.breakdown_description + '</p>';
       resultHtml += '<p><strong>Поврежденные детали:</strong> ' + details + '</p>';
+      resultHtml += '<p><strong>Статус:</strong> ' + data.data.repair_status + '</p>';
+      resultHtml += '<p><strong>Комментарии:</strong> ' + data.data.comments + '</p>';
     }
 
     document.getElementById('result').innerHTML = resultHtml;

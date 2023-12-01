@@ -46,7 +46,7 @@ client_tech = Table(
         )
     ),
     Column("status", String, nullable=False),
-    Column("comments", String, nullable=False),
+    Column("comments", String, nullable=True),
     Column("details_fo_client", Integer, server_default="0",
            nullable=False),
     Column(
