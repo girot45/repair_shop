@@ -1,7 +1,7 @@
 FROM python:3.10-slim
 
 # Создание рабочей директории
-WORKDIR /mafia_saas
+WORKDIR /repair_shop
 
 # Копирование списка зависимостей Python
 COPY requirements.txt .
@@ -14,4 +14,4 @@ RUN pip install gunicorn
 COPY . .
 
 # Запуск приложения
-CMD gunicorn main:app --workers 4 --worker-class uvicorn.workers.UvicornWorker --bind=0.0.0.0:8000
+CMD gunicorn main:app --workers 6 --worker-class uvicorn.workers.UvicornWorker --bind=0.0.0.0:8000
