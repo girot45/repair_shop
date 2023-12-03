@@ -38,7 +38,7 @@
     var checkNumber = document.getElementById('checkNumber').value;
 
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'http://localhost:8000/technique/info?receipt_number=' + checkNumber, true);
+    xhr.open('GET', 'http://girot.ru/technique/info?receipt_number=' + checkNumber, true);
     xhr.onreadystatechange = function() {
       if (xhr.readyState === 4) {
         if (xhr.status === 200) {
