@@ -38,6 +38,7 @@ class User(SQLAlchemyBaseUserTable[int], Base):
     date_of_hire = Column(DATE, nullable=False)
     exp = Column(Integer, nullable=False)
     speciality = Column(String, nullable=False)
+    is_admin: int = Column(Integer, server_default="0",nullable=False)
     is_active: bool = Column(Boolean, default=True, nullable=False)
     is_superuser: bool = Column(Boolean, default=False,
                                 nullable=False)

@@ -44,7 +44,10 @@ app.include_router(
 
 @app.get("/protected-route")
 def protected_route(user: User = Depends(current_user)):
-    return f"Hello, {user.fio}"
+    if not user.is_admin:
+        return {"status": "success", "answer": "Вы не администратор"}
+    else:
+        return f"Hello, master"
 
 
 @app.get("/unprotected-route")

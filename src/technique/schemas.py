@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, datetime
 from typing import Optional, Any
 from pydantic import BaseModel
 
@@ -11,7 +11,7 @@ class TechRead(BaseModel):
     id: int
     name: str
     model: str
-    acceptance_date: date
+    acceptance_date: datetime
     breakdown_description: str
     damaged_details: list[DamagedDetails]
     repair_status: str
