@@ -43,7 +43,9 @@
       if (xhr.readyState === 4) {
         if (xhr.status === 200) {
           var data = JSON.parse(xhr.responseText);
-          displayResult(data);
+          if (data.data){
+            displayResult(data);
+          }
         } else {
           console.error('Ошибка при выполнении запроса:', xhr.status);
           document.getElementById('result').innerHTML = 'Ошибка при выполнении запроса.';
@@ -56,20 +58,25 @@
   function displayResult(data) {
     var resultHtml = '<h4>Результат запроса:</h4>';
     if (data.status === 'success') {
-      var details = data.data.damaged_details.map(function(detail) {
-        return detail.descr;
-      }).join(', ');
+      if (data.data) {
+        var details = data.data.damaged_details.map(function(detail) {
+          return detail.descr;
+        }).join(', ');
 
-      resultHtml += '<p><strong>ID:</strong> ' + data.data.id + '</p>';
-      resultHtml += '<p><strong>Имя:</strong> ' + data.data.name + '</p>';
-      resultHtml += '<p><strong>Модель:</strong> ' + data.data.model + '</p>';
-      resultHtml += '<p><strong>Дата приема:</strong> ' + data.data.acceptance_date + '</p>';
-      resultHtml += '<p><strong>Описание поломки:</strong> ' + data.data.breakdown_description + '</p>';
-      resultHtml += '<p><strong>Поврежденные детали:</strong> ' + details + '</p>';
-      resultHtml += '<p><strong>Статус:</strong> ' + data.data.repair_status + '</p>';
-      resultHtml += '<p><strong>Комментарии:</strong> ' + data.data.comments + '</p>';
+        resultHtml += '<p><strong>ID:</strong> ' + data.data.id + '</p>';
+        resultHtml += '<p><strong>Имя:</strong> ' + data.data.name + '</p>';
+        resultHtml += '<p><strong>Модель:</strong> ' + data.data.model + '</p>';
+        resultHtml += '<p><strong>Дата приема:</strong> ' + data.data.acceptance_date + '</p>';
+        resultHtml += '<p><strong>Описание поломки:</strong> ' + data.data.breakdown_description + '</p>';
+        resultHtml += '<p><strong>Поврежденные детали:</strong> ' + details + '</p>';
+        resultHtml += '<p><strong>Статус:</strong> ' + data.data.repair_status + '</p>';
+        resultHtml += '<p><strong>Комментарии:</strong> ' + data.data.comments + '</p>';
+      }
     }
-
+    else {
+      resultHtml += '<p>Нет информации по чеку</p>'
+    }
+    document.getElementById('result').innerHTML = "";
     document.getElementById('result').innerHTML = resultHtml;
   }
 </script>
