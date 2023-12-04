@@ -18,7 +18,6 @@ app.mount("/templates", StaticFiles(directory="src/templates"),
 
 origins = [
     "http://localhost:8000",
-    "http://92.63.176.174:8000"
 ]
 
 app.add_middleware(
