@@ -24,26 +24,57 @@
         </div>
     </nav>
 
-    <div class="container my-5">
-        <h1 class="text-center my-4">Регистрация на сайте</h1>
-        <div class="col-md-5 mx-auto">
-            <form id="registration-form" action="/auth/register" method="post">
-                <div class="row">
-                    <div class="mb-3 input-group">
-                        <span class="input-group-text"><i class="fa-solid fa-at"></i></span>
-                        <input type="text" id="username" name="username" class="form-control" placeholder="Имя пользователя" required>
-                    </div>
-                    <div class="mb-3 input-group">
-                        <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
-                        <input type="password" id="password" name="password" class="form-control" placeholder="Пароль" required>
-                    </div>
-                    <div class="mb-3">
-                        <input type="submit" class="form-control btn btn-primary" value="Зарегистрироваться">
-                    </div>
-                </div>
-            </form>
-        </div>
+   <div class="container my-5">
+    <h1 class="text-center my-4">Регистрация на сайте</h1>
+    <div class="col-md-5 mx-auto">
+        <form id="registration-form" action="/auth/register" method="post">
+            <div class="mb-3 input-group">
+                <span class="input-group-text"><i class="fa-solid fa-envelope"></i></span>
+                <input type="email" id="email" name="email" class="form-control" placeholder="Email" required>
+            </div>
+            <div class="mb-3 input-group">
+                <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
+                <input type="password" id="password" name="password" class="form-control" placeholder="Пароль" required>
+            </div>
+            <div class="mb-3 input-group">
+                <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
+                <input type="password" id="confirm_password" name="confirm_password" class="form-control" placeholder="Подтвердите пароль" required>
+            </div>
+            <div class="mb-3 form-check">
+                <input type="checkbox" id="is_active" name="is_active" class="form-check-input" checked>
+                <label for="is_active" class="form-check-label">Активен</label>
+            </div>
+            <div class="mb-3 form-check">
+                <input type="checkbox" id="is_superuser" name="is_superuser" class="form-check-input">
+                <label for="is_superuser" class="form-check-label">Суперпользователь</label>
+            </div>
+            <div class="mb-3 form-check">
+                <input type="checkbox" id="is_verified" name="is_verified" class="form-check-input">
+                <label for="is_verified" class="form-check-label">Подтвержден</label>
+            </div>
+            <div class="mb-3 input-group">
+                <span class="input-group-text"><i class="fa-solid fa-user"></i></span>
+                <input type="text" id="fio" name="fio" class="form-control" placeholder="ФИО" required>
+            </div>
+            <div class="mb-3 input-group">
+                <span class="input-group-text"><i class="fa-solid fa-calendar"></i></span>
+                <input type="date" id="date_of_hire" name="date_of_hire" class="form-control" required>
+            </div>
+            <div class="mb-3 input-group">
+                <span class="input-group-text"><i class="fa-solid fa-chart-line"></i></span>
+                <input type="number" id="exp" name="exp" class="form-control" placeholder="Опыт работы" required>
+            </div>
+            <div class="mb-3 input-group">
+                <span class="input-group-text"><i class="fa-solid fa-briefcase"></i></span>
+                <input type="text" id="speciality" name="speciality" class="form-control" placeholder="Специальность" required>
+            </div>
+            <div class="mb-3">
+                <input type="submit" class="form-control btn btn-primary" value="Зарегистрироваться">
+            </div>
+        </form>
     </div>
+</div>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
     <script>

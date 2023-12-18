@@ -1,7 +1,9 @@
 from fastapi.responses import HTMLResponse
 
-from fastapi import Request, APIRouter
+from fastapi import Request, APIRouter, Depends, HTTPException
 
+from src.auth.auth_config import current_user
+from src.auth.models import User
 from src.config import templates
 
 
@@ -21,6 +23,13 @@ async def secure_login(request: Request):
                                       {"request": request})
 
 @router.get("/secure/register", response_class=HTMLResponse)
-async def secure_register(request: Request):
+async def secure_register(
+        request: Request,
+        user: User = Depends(current_user)
+):
+    if not user.is_admin:
+        raise HTTPException(status_code=302, detail="Redirecting...",
+                            headers={"Location": "/check-status"})
+
     return templates.TemplateResponse("register.html",
                                       {"request": request})
