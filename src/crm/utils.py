@@ -12,3 +12,16 @@ def prepare_data(pre_data):
         }
         res.append(item)
     return res
+
+
+def prepare_clients_answer(pre_data):
+    res = []
+    for data in pre_data:
+        item = {
+            "passport": data.passport,
+            "fio": data.fio,
+            "phone": data.phone,
+            "email": data.email,
+        }
+        res.append(item)
+    return res

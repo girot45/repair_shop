@@ -5,9 +5,10 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.auth.auth_config import current_user
 from src.auth.models import User
-from src.crm.models import ClientTech
-from src.crm.utils import prepare_data
-from src.crm.schemas import CreateClientTech, ResponseClientTech
+from src.crm.models import ClientTech, Client
+from src.crm.utils import prepare_data, prepare_clients_answer
+from src.crm.schemas import CreateClientTech, ResponseClientTech, \
+    CreateNewClient, ResponseClient
 from src.database import get_async_session
 
 router = APIRouter(
@@ -133,4 +134,50 @@ async def master_to_order(
         return {"status": "success", "data": "You got an order"}
     except Exception as e:
         await session.rollback()
+        return {"status": "error", "data": str(e)}
+
+@router.post("/create_client", response_model=ResponseClient)
+async def create_client(
+        client: CreateNewClient,
+        user: User = Depends(current_user),
+        session: AsyncSession = Depends(get_async_session)
+):
+    try:
+        if not user.is_admin:
+            return {"status": "error", "data": "You are not an admin"}
+        stmt = (select(Client).filter(Client.passport == client.passport))
+        res = await session.execute(stmt)
+        client_answer = res.scalar()
+        if client_answer:
+            return {"status": "error", "data": "This client already exists"}
+        else:
+            new_client = Client(
+                passport=client.passport,
+                fio=client.fio,
+                phone=client.phone,
+                email=client.email,
+            )
+            session.add(new_client)
+            await session.commit()
+            return {"status": "success", "data": "New client created"}
+    except Exception as e:
+        await session.rollback()
+        return {"status": "error", "data": str(e)}
+
+
+@router.get("/get_all_clients", response_model=ResponseClient)
+async def get_all_clients(
+        user: User = Depends(current_user),
+        session: AsyncSession = Depends(get_async_session)
+):
+    try:
+        if not user.is_admin:
+            return {"status": "error", "data": "You are not an admin"}
+        stmt = (
+            select(Client))
+        res = await session.execute(stmt)
+        clients = res.scalars()
+        answer = prepare_clients_answer(clients)
+        return {"status": "success", "data": answer}
+    except Exception as e:
         return {"status": "error", "data": str(e)}
