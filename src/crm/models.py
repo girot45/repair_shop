@@ -1,52 +1,31 @@
-from sqlalchemy import Table, Column, Integer, \
+from sqlalchemy import Column, Integer, \
     String, ForeignKey, DateTime, BigInteger, func
 
-from src.auth.models import master
-from src.database import metadata
-from src.technique.models import technique
+from src.auth.models import Master
+from src.database import metadata, Base
+from src.technique.models import Technique
+
+class Client(Base):
+    __tablename__ = "Client"
+
+    metadata = metadata
+
+    passport = Column(String, primary_key=True)
+    fio = Column(String, nullable=False)
+    phone = Column(String, unique=True, nullable=False)
+    email = Column(String, unique=True, nullable=False)
 
 
-client = Table(
-    "Client",
-    metadata,
-    Column("passport", String, primary_key=True),
-    Column("fio", String, nullable=False),
-    Column("phone", String, unique=True, nullable=False),
-    Column("email", String, unique=True, nullable=False)
-)
+class ClientTech(Base):
+    __tablename__ = "Client_tech"
+    metadata = metadata
 
-client_tech = Table(
-    "Client_tech",
-    metadata,
-    Column("id_tech", BigInteger, ForeignKey(
-        technique.c.id,
-        onupdate="cascade",
-    ),
-           primary_key=True
-           ),
-    Column(
-        "passport",
-        String,
-        ForeignKey(
-            client.c.passport,
-            onupdate="cascade",
-            ondelete="cascade"
-        )
-    ),
-    Column("status", String, nullable=False),
-    Column("comments", String, nullable=True),
-    Column("details_fo_client", Integer, server_default="0",
-           nullable=False),
-    Column(
-        "id_master",
-        BigInteger,
-        ForeignKey(
-            master.c.id,
-            onupdate="cascade",
-            ondelete="set null"
-        )
-    ),
-    Column("acceptance_date", DateTime(timezone=True),
-           nullable=False,
-           server_default=func.now()),
-)
+    id_tech = Column(BigInteger, ForeignKey("Technique.id", onupdate="cascade"), primary_key=True)
+    passport = Column(String, ForeignKey("Client.passport", onupdate="cascade", ondelete="cascade"))
+    status = Column(String, nullable=False)
+    comments = Column(String, nullable=True)
+    details_fo_client = Column(Integer, server_default="0", nullable=False)
+    id_master = Column(BigInteger,
+                       ForeignKey("Master.id", onupdate="cascade", ondelete="set null"),
+                       nullable=True)
+    acceptance_date = Column(DateTime(timezone=True), nullable=False, server_default=func.now())
