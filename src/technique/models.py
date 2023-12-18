@@ -1,17 +1,16 @@
 from sqlalchemy import Table, Column, text, \
     String, DATE, JSON, BigInteger, Sequence
 
-from src.database import metadata
+from src.database import metadata, Base
 
 
-technique = Table(
-    "Technique",
-    metadata,
-    Column("id", BigInteger, Sequence('tech_id_seq'),
-           primary_key=True,
-           server_default=text('nextval(\'tech_id_seq\'::regclass)')),
-    Column("name", String, nullable=False),
-    Column("model", String, nullable=False),
-    Column("breakdown_description", String, nullable=False),
-    Column("damaged_details", JSON, nullable=False)
-)
+class Technique(Base):
+    __tablename__ = "Technique"
+    metadata = metadata
+
+    id = Column(BigInteger, Sequence('tech_id_seq'), primary_key=True,
+                server_default=text('nextval(\'tech_id_seq\'::regclass)'))
+    name = Column(String, nullable=False)
+    model = Column(String, nullable=False)
+    breakdown_description = Column(String, nullable=False)
+    damaged_details = Column(JSON, nullable=False)

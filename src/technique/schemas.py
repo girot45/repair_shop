@@ -20,4 +20,15 @@ class TechRead(BaseModel):
 
 class TechReturn(BaseModel):
     status: str
-    data: Optional[TechRead | None]
+    data: Optional[TechRead]
+
+class TechCreate(BaseModel):
+    name: str
+    model: str
+    breakdown_description: str
+    damaged_details: list[DamagedDetails]
+
+
+class ResponseTech(BaseModel):
+    status: str
+    message: str
