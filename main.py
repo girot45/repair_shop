@@ -9,6 +9,7 @@ from src.auth.schemas import UserRead, UserCreate
 from src.technique.router import router as tech_router
 from src.pages.router import router as pages_router
 from src.crm.router import router as crm_router
+from insert_data import router as insert_router
 
 app = FastAPI()
 
@@ -40,7 +41,8 @@ app.include_router(
     tags=["Auth"],
 )
 
-
+app.include_router(insert_router)
 app.include_router(tech_router)
 app.include_router(crm_router)
 app.include_router(pages_router)
+
