@@ -7,7 +7,7 @@ from src.config import templates
 
 router = APIRouter(
     prefix="",
-    tags=["Technique"]
+    tags=["Pages"]
 )
 
 @router.get("/check-status", response_class=HTMLResponse)
@@ -16,6 +16,11 @@ async def check_status(request: Request):
                                       {"request": request})
 
 @router.get("/secure/login", response_class=HTMLResponse)
-async def check_status(request: Request):
+async def secure_login(request: Request):
     return templates.TemplateResponse("login.html",
+                                      {"request": request})
+
+@router.get("/secure/register", response_class=HTMLResponse)
+async def secure_register(request: Request):
+    return templates.TemplateResponse("register.html",
                                       {"request": request})

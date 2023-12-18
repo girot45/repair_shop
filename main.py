@@ -8,12 +8,12 @@ from src.auth.models import User
 from src.auth.schemas import UserRead, UserCreate
 from src.technique.router import router as tech_router
 from src.pages.router import router as pages_router
+from src.crm.router import router as crm_router
 
 app = FastAPI()
 
 app.mount("/templates", StaticFiles(directory="src/templates"),
           name="templates")
-
 
 
 origins = [
@@ -41,18 +41,6 @@ app.include_router(
 )
 
 
-@app.get("/protected-route")
-def protected_route(user: User = Depends(current_user)):
-    if not user.is_admin:
-        return {"status": "success", "answer": "Вы не администратор"}
-    else:
-        return f"Hello, master"
-
-
-@app.get("/unprotected-route")
-def unprotected_route():
-    return f"Hello, anonym"
-
-
 app.include_router(tech_router)
+app.include_router(crm_router)
 app.include_router(pages_router)
