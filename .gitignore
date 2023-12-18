@@ -3,3 +3,5 @@
 .env
 *.iml
 *.pyc
+url.txt
+migrations/versions
